@@ -1,0 +1,39 @@
+import java.util.Arrays;
+
+public class MergeArrays {
+
+    public static void mergeArrays(int[] X, int[] Y) {
+        int m = X.length; // Size of array X
+        int n = Y.length; // Size of array Y
+        
+        // Pointers for traversing arrays
+        int i = m - n - 1; // Index of the last non-vacant element in array X
+        int j = 0;         // Index of the first element in array Y
+        int k = 0;         // Index for inserting elements in array X
+        
+        // Merge arrays maintaining the sorted order
+        while (i >= 0 && j < n) {
+            if (X[i] > Y[j]) {
+                X[k++] = Y[j++]; // Move Y[j] to X[k], then increment both j and k
+            } else {
+                X[k++] = X[i--]; // Move X[i] to X[k], then decrement i and increment k
+            }
+        }
+        
+        // If there are remaining elements in array Y, add them to array X
+        while (j < n) {
+            X[k++] = Y[j++]; // Move Y[j] to X[k], then increment both j and k
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] X = {0, 2, 0, 3, 0, 5, 6, 0, 0};
+        int[] Y = {1, 8, 9, 10, 15};
+        
+        // Merge arrays X and Y
+        mergeArrays(X, Y);
+        
+        // Print the merged array X
+        System.out.println("Output: X[] = " + Arrays.toString(X));
+    }
+}
